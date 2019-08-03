@@ -6,6 +6,15 @@ const browserify = require("browserify");
 const source = require("vinyl-source-stream");
 const tsify = require("tsify");
 const webserver = require("gulp-webserver");
+const watchify = require('watchify');
+
+const watchedBrowserify = watchify(browserify({
+  basedir: '.',
+  debug: true,
+  entries: ['src/app.ts'],
+  cache: {},
+  packageCache: {}
+}).plugin(tsify));
 
 const paths = {
   tizen: ["src/index.html", "src/tizen/*"],
@@ -39,20 +48,13 @@ gulp.task("processCSS", function() {
     .pipe(gulp.dest("dist/css"));
 });
 
-gulp.task("CompileTSC", function() {
+function CompileTSC() {
   log.info("Starting compilation");
-  return browserify({
-    basedir: ".",
-    debug: true,
-    entries: ["src/app.ts"],
-    cache: {},
-    packageCache: {}
-  })
-    .plugin(tsify)
+  return watchedBrowserify
     .bundle()
     .pipe(source("app.js"))
     .pipe(gulp.dest("dist"));
-});
+}
 
 gulp.task(
   "serve",
@@ -65,8 +67,11 @@ gulp.task(
   "default",
   gulp.series(
     "clean",
-    gulp.parallel("copy-tizen", "copy-images", "processCSS", "CompileTSC"),
-    "serve"
+    gulp.parallel("copy-tizen", "copy-images", "processCSS"),
+    CompileTSC
   )
 );
+
+watchedBrowserify.on('update', CompileTSC);
+watchedBrowserify.on('log', log);
 

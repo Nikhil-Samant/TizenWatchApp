@@ -5,7 +5,10 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-ts": "tsc"
+    "build-ts": "tsc",
+    "tizen": "npm run tizenPackage",
+    "tizenPackage": "cd dist/ && tizen build-web && tizen package -t wgt -- .buildResult/",
+    "tizenRun": "cd dist/ && sdb install .buildResult/TizenWatch.wgt && sdb shell  \"wrt-launcher '-s xzXoGBQQyJ.TizenWatch'\""
   },
   "author": "Nikhil Samant",
   "license": "MIT",
@@ -19,7 +22,8 @@
     "tsify": "^4.0.1",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.1"
   },
   "dependencies": {}
 }
