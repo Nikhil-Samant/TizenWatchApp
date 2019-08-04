@@ -1,18 +1,22 @@
 import { AnalogWatch } from './module/analogWatch';
 import { Battery } from './module/battery';
+import { DigitalWatch } from './module/digitalWatch';
 
 /**
  * Initiates the application
  * @private
  */
 function init() {
-    const watch = new AnalogWatch();
+    const analogwatch = new AnalogWatch();
+    const digitalwatch = new DigitalWatch();
     const battery = new Battery();
-    watch.bindEvents();
+    analogwatch.bindEvents();
+    digitalwatch.bindEvents();
     battery.ShowBatteryInfo();
     // Update the watch hands every second
     setInterval(() => {
-        watch.updateTime();
+        analogwatch.updateTime();
+        digitalwatch.updateDigitalWatch();
     }, 1000);
 }
 

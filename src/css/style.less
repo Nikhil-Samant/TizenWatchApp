@@ -1,10 +1,15 @@
+@fontName: sans-serif;
+@whiteColor: rgb(255, 255, 255);
+@backgroundcolor: #222;
+@goldColor: rgb(219, 211, 3);
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
   margin: 0px auto;
-  background-color: #222;
+  background-color: @backgroundcolor;
 }
 
 #watch-background {
@@ -17,7 +22,6 @@ body {
   z-index: 0;
 }
 
-
 /*-------Watch-------*/
 
 #watch-second-indicator {
@@ -27,7 +31,7 @@ body {
   left: 165px;
   background-size: 30px 360px;
   z-index: 6;
-  background-image: url('../image/second_indicator.png');
+  background-image: url("../image/second_indicator.png");
   background-repeat: no-repeat;
 }
 
@@ -38,7 +42,7 @@ body {
   left: 165px;
   background-size: 30px 360px;
   z-index: 4;
-  background-image: url('../image/minute_indicator.png');
+  background-image: url("../image/minute_indicator.png");
   background-repeat: no-repeat;
 }
 
@@ -50,7 +54,7 @@ body {
   left: 165px;
   background-size: 30px 260px;
   z-index: 2;
-  background-image: url('../image/hour_indicator.png');
+  background-image: url("../image/hour_indicator.png");
   background-repeat: no-repeat;
 }
 
@@ -60,7 +64,7 @@ body {
   left: 170px;
   width: 20px;
   height: 20px;
-  background-image: url('../image/pin.png');
+  background-image: url("../image/pin.png");
   background-repeat: no-repeat;
   z-index: 6;
 }
@@ -93,34 +97,139 @@ body {
   height: 20px;
   font-size: 20px;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: @whiteColor;
   display: none;
 }
 
 /*-------BATTERY-------*/
 
 #battery-indicator {
-  top: 114px;
+  top: 140px;
   left: 200px;
-  background-image: url('../image/status_indicator.png');
+  background-image: url("../image/status_indicator.png");
   background-repeat: no-repeat;
   z-index: 0;
 }
 
 #battery-status {
-  top: 114px;
+  top: 140px;
   left: 200px;
   z-index: 1;
 }
 
 #battery-icon {
-  top: 122px;
+  top: 148px;
   left: 208px;
   z-index: 0;
 }
 
 #battery-text {
-  top: 146px;
+  top: 172px;
   left: 211px;
+  z-index: 0;
+  font-family: @fontName;
+}
+
+/*-------CALENDAR-------*/
+
+#calendar-month {
+  position: absolute;
+  top: 110px;
+  left: 117px;
+  width: 86px;
+  height: 17px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
+  color: @whiteColor;
+  text-align: right;
+  z-index: 0;
+}
+
+#calendar-date {
+  position: absolute;
+  top: 109px;
+  left: 200px;
+  width: 28px;
+  height: 23px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: @fontName;
+  color: @goldColor;
+  text-align: center;
+  z-index: 0;
+}
+
+#calendar-weekday {
+  position: absolute;
+  top: 80px;
+  left: 120px;
+  width: 86px;
+  height: 17px;
+  font-size: 28px;
+  font-weight: bold;
+  font-family: @fontName;
+  color: @whiteColor;
+  text-align: right;
+  z-index: 0;
+}
+
+#digital-hour-indicator {
+  position: absolute;
+  top: 235px;
+  left: 80px;
+  width: 86px;
+  height: 17px;
+  font-size: 28px;
+  font-weight: bold;
+  font-family: @fontName;
+  color: @whiteColor;
+  text-align: right;
+  z-index: 0;
+}
+
+#digital-hour-indicator::after {
+  content: ":";
+}
+
+#digital-min-indicator {
+  position: absolute;
+  top: 235px;
+  left: 113px;
+  width: 86px;
+  height: 17px;
+  font-size: 28px;
+  font-weight: bold;
+  font-family: @fontName;
+  color: @whiteColor;
+  text-align: right;
+  z-index: 0;
+}
+
+#digital-second-indicator {
+  position: absolute;
+  top: 235px;
+  left: 140px;
+  width: 86px;
+  height: 17px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: @fontName;
+  color: @whiteColor;
+  text-align: right;
+  z-index: 0;
+}
+
+#digital-part-indicator {
+  position: absolute;
+  top: 245px;
+  left: 145px;
+  width: 86px;
+  height: 17px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: @fontName;
+  color: @whiteColor;
+  text-align: right;
   z-index: 0;
 }
