@@ -1,77 +1,77 @@
 export class Battery {
-    private batteryLevel: number;
+    private battery: any;
+    private ARR_COLOR = ['red', 'orange', 'yellow', 'green', 'blue'];
+    private devMode: boolean = false;
 
-    public ShowStatus() {
-        const battery: any = this.GetBatteryStatus();
-        if (typeof battery !== 'undefined') {
-            this.batteryLevel = (battery.level !== 0.0) ? (battery.level * 100 ) : 0;
-            this.updateCharge(battery);
-            this.bindEvents(battery);
-        }
-    }
-
-    private bindEvents(battery: any) {
-        // Add an event listener to update the screen immediately when the device wakes up
-        battery.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                this.updateCharge(battery);
-            }
-        });
-
-        battery.addEventListener('chargingchange', () => {
-            this.updateCharge(battery);
-        });
-    }
-    private updateCharge(battery: any) {
-        const elementID: string = 'battery';
-        const element: HTMLElement = document.querySelector('#' + elementID);
-        if (battery.charging === true) {
-            element.style.backgroundColor = 'gold';
-            element.classList.add('animatee');
-            console.log(this.batteryLevel + '%');
-        } else {
-            element.style.backgroundColor = 'green';
-            this.updateLevelInfo(battery, element);
-        }
-    }
-
-    private updateLevelInfo(battery: any, element: HTMLElement) {
-        element.classList.remove('Low');
-        element.classList.remove('animatee');
-        element.classList.add('Color');
-        if ((battery.level * 100) <= 15) {
-            element.classList.add('battery level-25');
-            element.classList.remove('Color');
-            element.style.backgroundColor = 'red';
-            element.classList.add('Low');
-        } else if ((battery.level * 100) <= 25) {
-            element.classList.add('battery level-25');
-        } else if ((battery.level * 100) <= 50) {
-            element.classList.add('battery level-50');
-        } else if ((battery.level * 100) <= 75) {
-            element.classList.add('battery level-75');
-        } else if ((battery.level * 100) <= 100) {
-            element.classList.add('battery level-100');
-        } else if ((battery.level * 100) === 0) {
-            element.classList.add('battery level-0');
-        }
-    }
-
-    private GetBatteryStatus() {
+    /**
+     * @public
+     */
+    public ShowBatteryInfo() {
         // @ts-ignore
-        if (typeof tizen !== 'undefined') {
+        this.battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
+        if (typeof this.battery === 'undefined') {
+            this.devMode = true;
             // @ts-ignore
-            tizen.systeminfo.getPropertyValue('BATTERY',
-                // @ts-ignore
-                (battery) => {
-                    console.log('Battery: ' + battery.level);
-                    return battery;
-                },
-                // @ts-ignore
-                (error) => {
-                    console.log('Error, name: ' + error.name + ', message: ' + error.message);
-                });
+            navigator.getBattery().then((battery: any) => {
+                this.battery = battery;
+                // Bind all the battery events
+                this.bindEvents();
+            });
+        } else {
+            // Bind all the battery events
+            this.bindEvents();
         }
     }
 
+    public bindEvents() {
+
+        const elBattery: HTMLElement = document.querySelector('#component-battery');
+        // Adds event listeners to update battery state when the battery is changed.
+        if (!this.devMode) {
+            this.battery.addEventListener('chargingchange', this.updateBattery());
+            this.battery.addEventListener('chargingtimechange', this.updateBattery());
+            this.battery.addEventListener('dischargingtimechange', this.updateBattery());
+            this.battery.addEventListener('levelchange', this.updateBattery());
+        } else {
+            this.battery.addEventListener('onchargingchange', this.updateBattery());
+            this.battery.addEventListener('onchargingtimechange', this.updateBattery());
+            this.battery.addEventListener('ondischargingtimechange', this.updateBattery());
+            this.battery.addEventListener('onlevelchange', this.updateBattery());
+        }
+        // Adds event listeners to change displaying child element when the battery element is clicked.
+        elBattery.addEventListener('click', () => {
+            this.toggleElement('#battery-icon', '#battery-text');
+        });
+    }
+
+    private updateBattery() {
+        const elBatteryIcon: HTMLElement = document.querySelector('#battery-icon');
+        const elBatteryStatus: HTMLElement = document.querySelector('#battery-status');
+        const elBatteryText: HTMLElement = document.querySelector('#battery-text');
+        const batteryLevel = Math.floor(this.battery.level * 100);
+        const batteryGrade = Math.floor(batteryLevel / 20);
+        const statusColor = this.ARR_COLOR[batteryGrade];
+
+        elBatteryIcon.style.backgroundImage = 'url(\'./image/color_status/battery_icon_' + statusColor + '.png\')';
+        elBatteryStatus.style.backgroundImage = 'url(\'./image/color_status/' + statusColor + '_indicator.png\')';
+        elBatteryText.innerHTML = batteryLevel + '%';
+    }
+
+    /**
+     * Changes display attribute of two elements when occur click event
+     * @private
+     * @param {object} element1 - The first element id for changing display
+     * @param {object} element2 - The second element id for changing display
+     */
+    private toggleElement(element1: string, element2: string) {
+        const el1: HTMLElement = document.querySelector(element1);
+        const el2: HTMLElement = document.querySelector(element2);
+        if (el1.style.display === 'none') {
+            el1.style.display = 'block';
+            el2.style.display = 'none';
+        } else {
+            el1.style.display = 'none';
+            el2.style.display = 'block';
+        }
+    }
 }

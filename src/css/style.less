@@ -1,175 +1,126 @@
-html,
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  overflow: hidden;
+  margin: 0px auto;
+  background-color: #222;
 }
 
-#container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-#background {
+#watch-background {
+  position: absolute;
   width: 100%;
   height: 100%;
   background-image: url("../image/watch_bg.png");
   background-repeat: no-repeat;
+  overflow: hidden;
+  z-index: 0;
 }
 
-#components-main {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
 
-#hand-main-hour {
-  position: absolute;
-  left: 167px;
-  top: 9px;
-  width: 25px;
+/*-------Watch-------*/
+
+#watch-second-indicator {
+  width: 30px;
   height: 360px;
-  background-image: url("../image/watch_hand_hour.png");
-  background-position: 50% 23%;
-  background-size: contain;
+  position: absolute;
+  left: 165px;
+  background-size: 30px 360px;
+  z-index: 6;
+  background-image: url('../image/second_indicator.png');
   background-repeat: no-repeat;
 }
 
-#hand-main-minute {
-  position: absolute;
-  left: 167px;
-  top: 9px;
-  width: 25px;
+#watch-min-indicator {
+  width: 30px;
   height: 360px;
-  background-image: url("../image/watch_hand_minute.png");
-  background-position: center 20%;
-  background-size: contain;
+  position: absolute;
+  left: 165px;
+  background-size: 30px 360px;
+  z-index: 4;
+  background-image: url('../image/minute_indicator.png');
   background-repeat: no-repeat;
 }
 
-#hand-main-second {
+#watch-hour-indicator {
+  width: 30px;
+  height: 260px;
   position: absolute;
-  left: 167px;
-  top: 9px;
-  width: 28px;
-  height: 360px;
-  background-image: url("../image/watch_hand_second.png");
-  background-position: center top;
-  background-size: contain;
+  top: 50px;
+  left: 165px;
+  background-size: 30px 260px;
+  z-index: 2;
+  background-image: url('../image/hour_indicator.png');
   background-repeat: no-repeat;
 }
 
-#hand-main-hour,
-#hand-main-minute,
-#hand-main-second {
+#watch-center-pin {
+  position: absolute;
+  top: 170px;
+  left: 170px;
+  width: 20px;
+  height: 20px;
+  background-image: url('../image/pin.png');
+  background-repeat: no-repeat;
+  z-index: 6;
+}
+
+#watch-second-indicator,
+#watch-min-indicator,
+#watch-hour-indicator {
   transition: transform 0.5s ease-in-out;
 }
 
-#battery {
-  display: inline-block;
-  width: 4.5em;
-  height: 10em;
-  border: 1em solid #191919;
-  border-width: 0.5em 1em;
-  box-shadow: 0 0 0 1em white, 0 0 1em white;
-  border-radius: 2%;
-  margin: 4em 1.5em 1.5em;
-  position: relative;
-  background-color: green;
-  background-image: linear-gradient(
-    180deg,
-    #191919 0.5em,
-    #191919 0.5em,
-    transparent 0.5em,
-    transparent 2em,
-    #191919 2em,
-    #191919 3em,
-    transparent 3em,
-    transparent 4.5em,
-    #191919 4.5em,
-    #191919 5.5em,
-    transparent 5.5em,
-    transparent 7em,
-    #191919 7em,
-    #191919 8em,
-    transparent 8em,
-    transparent 9.5em,
-    #191919 9.5em
-  );
-  background-size: 100%;
-}
-
-#battery:before {
-  opacity: 0%;
+.info-indicator {
   position: absolute;
-  top: -4em;
-  left: 0em;
-  display: block;
-  background: white;
-  box-shadow: 0 0 0.1em white;
-  width: 4.5em;
-  height: 1.5em;
-  content: "";
-  border-radius: 0.9em 0.9em 0 0;
+  width: 88px;
+  height: 88px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-#battery:after {
+.info-icon {
   position: absolute;
-  top: 0em;
-  left: 0em;
-  display: block;
-  background: #191919;
-  width: 4.5em;
-  height: 0;
-  content: "";
+  width: 73px;
+  height: 73px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-#battery.level-75:after {
-  height: 2em;
+.info-text {
+  position: absolute;
+  width: 66px;
+  height: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  display: none;
 }
 
-#battery.level-50:after {
-  height: 4.5em;
+/*-------BATTERY-------*/
+
+#battery-indicator {
+  top: 114px;
+  left: 200px;
+  background-image: url('../image/status_indicator.png');
+  background-repeat: no-repeat;
+  z-index: 0;
 }
 
-#battery.level-25:after {
-  height: 7em;
+#battery-status {
+  top: 114px;
+  left: 200px;
+  z-index: 1;
 }
 
-#battery.level-25 {
-  background-color: red;
+#battery-icon {
+  top: 122px;
+  left: 208px;
+  z-index: 0;
 }
 
-#battery.level-0:after {
-  height: 9.5em;
-}
-
-.animatee {
-  animation: color 5s ease-in-out infinite;
-}
-
-@keyframes color {
-  0%,
-  100% {
-    text-shadow: 0 0 0;
-  }
-  25% {
-    text-shadow: 0 0 0.2em gold, 0 0 0.4em gold;
-  }
-  50% {
-    text-shadow: 0 0 0;
-  }
-  75% {
-    text-shadow: 0 0 0.2em gold, 0 0 0.4em gold;
-  }
-}
-
-.Color {
-  text-shadow: 0 0 0.2em green, 0 0 0.4em green, 0 0 0.6em green;
-}
-
-.Low {
-  text-shadow: 0 0 0.2em red, 0 0 0.4em red, 0 0 0.6em red;
+#battery-text {
+  top: 146px;
+  left: 211px;
+  z-index: 0;
 }

@@ -18,7 +18,7 @@ const watchedBrowserify = watchify(browserify({
 
 const paths = {
   tizen: ["src/index.html", "src/tizen/*"],
-  image: ["src/image/*"]
+  image: ["src/image/**/*"]
 };
 
 gulp.task("clean", function() {
@@ -36,7 +36,7 @@ gulp.task("copy-images", function() {
   return gulp.src(paths.image).pipe(gulp.dest("dist/image"));
 });
 
-gulp.task("processCSS", function() {
+gulp.task("processCSS", function () {
   log.info("processing less files");
   return gulp
     .src("src/css/*.less")

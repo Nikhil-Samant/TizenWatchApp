@@ -28,9 +28,9 @@ export class AnalogWatch {
     public updateTime() {
         // Rotate the hour/minute/second hands
         this.calculatePosition();
-        this.rotateElement('hand-main-hour', this.clock.hrPosition);
-        this.rotateElement('hand-main-minute', this.clock.minPosition);
-        this.rotateElement('hand-main-second', this.clock.secPosition);
+        this.rotateElement('watch-hour-indicator', this.clock.hrPosition);
+        this.rotateElement('watch-min-indicator ', this.clock.minPosition);
+        this.rotateElement('watch-second-indicator ', this.clock.secPosition);
     }
 
     /**

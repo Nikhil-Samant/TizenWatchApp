@@ -9,7 +9,7 @@ function init() {
     const watch = new AnalogWatch();
     const battery = new Battery();
     watch.bindEvents();
-    // battery.ShowStatus();
+    battery.ShowBatteryInfo();
     // Update the watch hands every second
     setInterval(() => {
         watch.updateTime();

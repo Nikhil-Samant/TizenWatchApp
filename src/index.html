@@ -7,19 +7,23 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
     <meta name="description" content="Tizen Wearable Web Basic Watch Face" />
-    <title>Basic Watch</title>
+    <title>Tizen Watch</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
 
   <body>
-    <div id="container">
-      <div id="background">
-        <div id="components-main">
-          <div id="hand-main-hour"></div>
-          <div id="hand-main-minute"></div>
-          <div id="hand-main-second"></div>
-          <!-- <div id="battery"></div> -->
-        </div>
+    <div id="watch-background">
+      <div id="component-watch">
+        <div id="watch-second-indicator"></div>
+        <div id="watch-min-indicator"></div>
+        <div id="watch-hour-indicator"></div>
+        <div id="watch-center-pin"></div>
+      </div>
+      <div id="component-battery">
+        <div id="battery-indicator" class="info-indicator"></div>
+        <div id="battery-status" class="info-indicator"></div>
+        <div id="battery-text" class="info-text"></div>
+        <div id="battery-icon" class="info-icon"></div>
       </div>
     </div>
     <script src="app.js"></script>
